@@ -263,7 +263,6 @@ private fun TheoryPage(
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // TODO: Убрать MD, заменить на обычные компоненты
         content()
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

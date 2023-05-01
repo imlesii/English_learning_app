@@ -273,7 +273,7 @@ private fun StartPage(nav: NavHostController) {
     ) {
         Text(
             text = """
-                Будет ${TESTS.size} вопросов. Среди предоставленных 5 вариантов" ответа,
+                Будет ${TESTS.size} вопросов. Среди предоставленных вариантов ответа,
                 нужно будет выбрать один и подтвердить. После выполнения теста будут указаны ошибки.
             """.trimIndent(),
             textAlign = TextAlign.Center,
@@ -339,7 +339,6 @@ private fun TestQuestion(
 private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
     val errors: MutableList<Int> = ArrayList()
     for (i in TESTS.indices) {
-        Log.i("ResultPage", "$i ${testAnswers[i]}")
         if (!testAnswers[i].right) {
             errors.add(i)
         }
