@@ -14,7 +14,6 @@ import androidx.navigation.*
 import androidx.navigation.compose.*
 import java.time.LocalDateTime
 import java.time.ZoneId
-
 private val TESTS = listOf(
     Test(
         question = "Как правильно называется сущность “Заказ” в контексте приложения для интернет-магазинов, где пользователь может добавлять или удалять товары из корзины до завершения покупки?",

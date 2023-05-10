@@ -1,7 +1,7 @@
 package a.svitina.english_learning_for_developers.theory
 import a.svitina.english_learning_for_developers.theory.WhereToGo.*
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.*
 import androidx.compose.material.icons.outlined.*

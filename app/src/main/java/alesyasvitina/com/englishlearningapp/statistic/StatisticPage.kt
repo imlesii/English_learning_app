@@ -1,13 +1,6 @@
 package alesyasvitina.com.englishlearningapp.statistic
-
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -20,21 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.format.DateTimeFormatter
-import java.util.Random
-
-private val datetimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm")
-
+private val datetimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
 private val COLUMN_SIZE = object {
     val DATE_TIME = 0.45f
     val RESULT = 0.4f
     val TIME_SPENT: Float? = null
 }
-
 @Composable
 fun StatisticPage(onExit: () -> Unit) {
     val repository = StatisticRepository(LocalContext.current)
     val statisticData = repository.loadAll()
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -85,7 +73,7 @@ fun StatisticPage(onExit: () -> Unit) {
                     )
                     TableCell(text = "${it.resultInPercent}%", width = COLUMN_SIZE.RESULT)
                     TableCell(
-                        text = "${timeSpentMinutes}:${timeSpentSeconds}",
+                        text = String.format("%02d:%02d", timeSpentMinutes, timeSpentSeconds),
                         width = COLUMN_SIZE.TIME_SPENT
                     )
                 }
@@ -93,7 +81,6 @@ fun StatisticPage(onExit: () -> Unit) {
         }
     }
 }
-
 @Composable
 private fun TableRow(items: @Composable () -> Unit) {
     Row(
@@ -104,7 +91,6 @@ private fun TableRow(items: @Composable () -> Unit) {
         items()
     }
 }
-
 @Composable
 private fun TableCell(
     text: String,
@@ -124,4 +110,3 @@ private fun TableCell(
         modifier = modifier
     )
 }
-

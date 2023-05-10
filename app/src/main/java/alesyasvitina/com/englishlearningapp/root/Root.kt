@@ -1,5 +1,4 @@
 package a.svitina.english_learning_for_developers.root
-
 import a.svitina.english_learning_for_developers.test.Tests
 import a.svitina.english_learning_for_developers.theory.Theory
 import alesyasvitina.com.englishlearningapp.R
@@ -12,9 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.painterResource
@@ -23,14 +20,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import androidx.navigation.compose.*
-
 private val LINKS = object {
     val root = "root"
     val theory = "theory"
     val tests = "tests"
     val statistic = "statistic"
 }
-
 @Composable
 fun Root() {
     val nav = rememberNavController()
