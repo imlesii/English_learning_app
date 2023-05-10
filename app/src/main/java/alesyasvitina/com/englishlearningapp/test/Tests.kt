@@ -1,14 +1,20 @@
 package a.svitina.english_learning_for_developers.test
+import alesyasvitina.com.englishlearningapp.statistic.Statistic
+import alesyasvitina.com.englishlearningapp.statistic.StatisticRepository
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import androidx.navigation.*
 import androidx.navigation.compose.*
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 private val TESTS = listOf(
     Test(
         question = "Как правильно называется сущность “Заказ” в контексте приложения для интернет-магазинов, где пользователь может добавлять или удалять товары из корзины до завершения покупки?",
@@ -195,6 +201,8 @@ private val LINKS = object {
 }
 @Composable
 fun Tests(onExit: () -> Unit) {
+    val statisticRepository = StatisticRepository(LocalContext.current)
+    val startTime = LocalDateTime.now()
     val nav = rememberNavController()
     val testAnswers: List<MutableState<Answer?>> = remember {
         TESTS.map { mutableStateOf(null) }
@@ -217,6 +225,21 @@ fun Tests(onExit: () -> Unit) {
                         if (i < TESTS.size - 1) {
                             nav.navigate(LINKS.question[i + 1])
                         } else {
+                            val endTime = LocalDateTime.now()
+                            val endTimeMilli = endTime.atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli()
+                            val startTimeMilli = startTime.atZone(ZoneId.systemDefault())
+                                .toInstant()
+                                .toEpochMilli()
+                            val diff = endTimeMilli - startTimeMilli
+                            val rightAnswersCount = testAnswers.count { x -> x.value != null && x.value!!.right }.toLong()
+                            val statistic = Statistic(
+                                datetime = startTime,
+                                timeSpentInSeconds = diff / 1000,
+                                resultInPercent = (100L * rightAnswersCount) / TESTS.size
+                            )
+                            statisticRepository.saveNew(statistic)
                             nav.navigate(LINKS.result)
                         }
                     },

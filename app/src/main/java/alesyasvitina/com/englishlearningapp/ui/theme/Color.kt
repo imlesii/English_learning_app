@@ -2,7 +2,7 @@ package alesyasvitina.com.englishlearningapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val MainLight = Color(0xFF92FC86)
+val MainMiddle = Color(0xFF26CC00)
+val MainDark = Color(0xFF035200)
+val SecondaryLight = Color(0xFF0BDBEE)
