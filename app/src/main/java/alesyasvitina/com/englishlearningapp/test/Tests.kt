@@ -1,37 +1,14 @@
 package a.svitina.english_learning_for_developers.test
-
-import android.util.Log
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Divider
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.text.font.*
+import androidx.compose.ui.text.style.*
+import androidx.compose.ui.unit.*
+import androidx.navigation.*
+import androidx.navigation.compose.*
 private val TESTS = listOf(
     Test(
         question = "Как правильно называется сущность “Заказ” в контексте приложения для интернет-магазинов, где пользователь может добавлять или удалять товары из корзины до завершения покупки?",
@@ -216,14 +193,12 @@ private val LINKS = object {
     val result = "result"
     val question = TESTS.indices.map { "question-$it" }
 }
-
 @Composable
 fun Tests(onExit: () -> Unit) {
     val nav = rememberNavController()
     val testAnswers: List<MutableState<Answer?>> = remember {
         TESTS.map { mutableStateOf(null) }
     }
-
     NavHost(
         modifier = Modifier.padding(8.dp),
         navController = nav,
@@ -263,7 +238,6 @@ fun Tests(onExit: () -> Unit) {
         }
     }
 }
-
 @Composable
 private fun StartPage(nav: NavHostController) {
     Column(
@@ -273,8 +247,10 @@ private fun StartPage(nav: NavHostController) {
     ) {
         Text(
             text = """
-                Будет ${TESTS.size} вопросов. Среди предоставленных вариантов ответа,
-                нужно будет выбрать один и подтвердить. После выполнения теста будут указаны ошибки.
+                Тест состоит из ${TESTS.size} вопросов. Среди предоставленных вариантов ответа Вам
+                нужно будет выбрать один и подтвердить свой выбор. После выполнения теста Вы сможете
+                ознакомиться с результатом и, при наличии ошибок, их разобрать. Не переживайте, 
+                мы поможем!
             """.trimIndent(),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(16.dp)
@@ -284,7 +260,6 @@ private fun StartPage(nav: NavHostController) {
         }
     }
 }
-
 @Composable
 private fun TestQuestion(
     test: Test,
@@ -329,12 +304,11 @@ private fun TestQuestion(
                 enabled = selected != null,
                 onClick = { onAnswer(selected!!) }
             ) {
-                Text("Подтвердить")
+                Text("Подтвердить выбор")
             }
         }
     }
 }
-
 @Composable
 private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
     val errors: MutableList<Int> = ArrayList()
@@ -343,7 +317,6 @@ private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
             errors.add(i)
         }
     }
-
     if (errors.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -361,7 +334,7 @@ private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(onClick = onExit) {
-                    Text("В меню")
+                    Text("В главное меню")
                 }
             }
         }
@@ -379,7 +352,7 @@ private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Ошибок: ${errors.size}!",
+                        text = "Ошибок: ${errors.size}",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )
@@ -420,7 +393,6 @@ private fun ResultPage(testAnswers: List<Answer>, onExit: () -> Unit) {
         }
     }
 }
-
 private data class Test(
     val question: String,
     val answers: List<Answer>,
@@ -431,7 +403,6 @@ private data class Test(
             return answers.first { it.right }.content
         }
 }
-
 private data class Answer(
     val content: String,
     val right: Boolean
