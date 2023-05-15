@@ -1,5 +1,4 @@
 package alesyasvitina.com.englishlearningapp.statistic
-
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -7,7 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-
 private val SQL = object {
     val DB = object {
         val NAME = "english_learning_app"
@@ -33,10 +31,8 @@ private val SQL = object {
         }
     }
 }
-
 class StatisticRepository(context: Context?) :
     SQLiteOpenHelper(context, SQL.DB.NAME, null, SQL.DB.VERSION) {
-
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL(
             """
@@ -49,12 +45,10 @@ class StatisticRepository(context: Context?) :
             """.trimIndent()
         )
     }
-
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("drop table if exists ${SQL.TABLE}")
         onCreate(db)
     }
-
     fun loadAll(): List<Statistic> {
         val db = readableDatabase!!
         val cursor = db.rawQuery(
@@ -82,7 +76,6 @@ class StatisticRepository(context: Context?) :
         }
         return result
     }
-
     fun saveNew(statistic: Statistic) {
         val db = writableDatabase!!
         db.use {
@@ -105,7 +98,6 @@ class StatisticRepository(context: Context?) :
             db.insert(SQL.TABLE, null, values)
         }
     }
-
     fun deleteAll() {
         val db = writableDatabase!!
         db.use {

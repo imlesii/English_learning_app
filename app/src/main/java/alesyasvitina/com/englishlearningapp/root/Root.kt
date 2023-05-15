@@ -85,10 +85,14 @@ fun Root() {
             )
         }
         composable(LINKS.tests) {
-            Tests(onExit = { nav.navigate(LINKS.root) })
+            Tests(onExit = {
+                nav.navigate(LINKS.root)
+            })
         }
         composable(LINKS.statistic) {
-            StatisticPage(onExit = { nav.navigate(LINKS.root) })
+            StatisticPage(onExit = {
+                nav.navigate(LINKS.root)
+            })
         }
     }
 }
